@@ -2,8 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const exitHook = require('async-exit-hook');
-
 const config = require('./config');
+const posts = require('./app/posts');
 
 const users = require('./app/users');
 
@@ -16,6 +16,10 @@ app.use(cors());
 
 
 app.use('/users', users);
+
+app.use('/posts', posts);
+
+
 
 const run = async () => {
     await mongoose.connect(config.mongo.db, config.mongo.options);
