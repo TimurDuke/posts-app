@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 
 import FormElement from "../../components/UI/Form/FormElement/FormElement";
 import ButtonWithProgress from "../../components/UI/ButtonWithProgress/ButtonWithProgress";
-// import {clearRegisterErrors, registerUser} from "../../store/actions/usersActions";
+import {clearRegisterErrors, registerUser} from "../../store/actions/usersActions";
 
 const useStyles = makeStyles()(theme => ({
     paper: {
@@ -34,19 +34,19 @@ const Register = () => {
     const { classes } = useStyles();
     const dispatch = useDispatch();
 
-    // const error = useSelector(state => state.users.registerError);
-    // const registerLoading = useSelector(state => state.users.registerLoading);
+    const error = useSelector(state => state.users.registerError);
+    const registerLoading = useSelector(state => state.users.registerLoading);
 
     const [user, setUser] = useState({
         username: '',
         password: '',
     });
 
-    // useEffect(() => {
-    //     return () => {
-    //         dispatch(clearRegisterErrors());
-    //     }
-    // }, [dispatch]);
+    useEffect(() => {
+        return () => {
+            dispatch(clearRegisterErrors());
+        }
+    }, [dispatch]);
 
     const inputChangeHandler = e => {
         const {name, value} = e.target;
@@ -57,16 +57,16 @@ const Register = () => {
     const submitFormHandler = e => {
         e.preventDefault();
 
-        // dispatch(registerUser({...user}));
+        dispatch(registerUser({...user}));
     };
 
-    // const getFieldError = fieldName => {
-    //     try {
-    //         return error.errors[fieldName].message;
-    //     } catch {
-    //         return undefined;
-    //     }
-    // };
+    const getFieldError = fieldName => {
+        try {
+            return error.errors[fieldName].message;
+        } catch {
+            return undefined;
+        }
+    };
 
     return (
         <Container maxWidth="xs">
@@ -90,7 +90,7 @@ const Register = () => {
                         required={true}
                         onChange={inputChangeHandler}
                         value={user.username}
-                        // error={getFieldError('username')}
+                        error={getFieldError('username')}
                     />
                     <FormElement
                         name='password'
@@ -99,7 +99,7 @@ const Register = () => {
                         required={true}
                         onChange={inputChangeHandler}
                         value={user.password}
-                        // error={getFieldError('password')}
+                        error={getFieldError('password')}
                     />
 
                     <Grid item xs={12}>
@@ -109,8 +109,8 @@ const Register = () => {
                             variant="contained"
                             color="success"
                             className={classes.submit}
-                            // loading={registerLoading}
-                            // disabled={registerLoading}
+                            loading={registerLoading}
+                            disabled={registerLoading}
                         >
                             Sign Up
                         </ButtonWithProgress>
