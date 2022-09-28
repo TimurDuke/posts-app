@@ -1,6 +1,6 @@
 import axiosApi from "../../axiosApi";
 import {historyPush} from "./historyActions";
-import {useToastSuccess} from "../../hooks";
+import {useHeadersAuth, useToastSuccess} from "../../hooks";
 
 export const CLEAR_REGISTER_ERRORS = 'CLEAR_REGISTER_ERRORS';
 export const clearRegisterErrors = () => ({type: CLEAR_REGISTER_ERRORS});
@@ -37,3 +37,56 @@ export const registerUser = userData => {
         }
     };
 }
+
+export const LOGOUT_USER = 'LOGOUT_USER';
+
+export const logoutUser = () => {
+    return async (dispatch, getState) => {
+        try {
+            const headers = useHeadersAuth(getState());
+
+            await axiosApi.delete('users/sessions', {headers});
+
+            dispatch({type: LOGOUT_USER});
+            dispatch(historyPush('/'));
+        } catch (e) {
+            console.error(e);
+        }
+    };
+}
+
+export const CLEAR_LOGIN_ERRORS = 'CLEAR_LOGIN_ERRORS';
+export const clearLoginErrors = () => ({type: CLEAR_LOGIN_ERRORS});
+
+export const LOGIN_USER_REQUEST = 'LOGIN_USER_REQUEST';
+export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
+export const LOGIN_USER_FAILURE = 'LOGIN_USER_FAILURE';
+
+const loginUserRequest = () => ({type: LOGIN_USER_REQUEST});
+const loginUserSuccess = userData => ({type: LOGIN_USER_SUCCESS, userData});
+const loginUserFailure = error => ({type: LOGIN_USER_FAILURE, error});
+
+export const loginUser = userData => {
+    return async dispatch => {
+        try {
+            dispatch(loginUserRequest());
+
+            const response = await axiosApi.post('/users/sessions', userData);
+
+            if (response.data) {
+                dispatch(loginUserSuccess(response.data));
+                dispatch(historyPush('/'));
+            }
+
+            if (response.status === 200) {
+                useToastSuccess('You have successfully logged in!');
+            }
+        } catch (e) {
+            if (e.response && e.response.data) {
+                dispatch(loginUserFailure(e.response.data));
+            } else {
+                dispatch(loginUserFailure({global: 'No internet'}));
+            }
+        }
+    };
+};

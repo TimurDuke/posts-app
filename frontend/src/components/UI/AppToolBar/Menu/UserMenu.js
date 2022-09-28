@@ -3,15 +3,14 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import {Link} from "react-router-dom";
 import {Box} from "@mui/material";
 import {useDispatch} from "react-redux";
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 
-// import {logoutUser} from "../../../../store/actions/usersActions";
+import {logoutUser} from "../../../../store/actions/usersActions";
 
 const UserMenu = ({user}) => {
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -33,15 +32,6 @@ const UserMenu = ({user}) => {
                     alignItems: 'center'
                 }}
             >
-                <Button
-                    color='inherit'
-                    sx={{marginRight: "20px"}}
-                    variant='outlined'
-                    component={Link}
-                    to='/track_history'
-                >
-                    Tracks History
-                </Button>
                 <Button
                     id="basic-button"
                     color="inherit"
@@ -65,7 +55,7 @@ const UserMenu = ({user}) => {
             >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
-                {/*<MenuItem onClick={() => dispatch(logoutUser())}>Logout</MenuItem>*/}
+                <MenuItem onClick={() => dispatch(logoutUser())}>Logout</MenuItem>
             </Menu>
         </div>
     );

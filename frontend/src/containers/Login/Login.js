@@ -5,9 +5,9 @@ import {Alert, Avatar, Container, Grid, Link, Typography} from "@mui/material";
 import {LockOpenOutlined} from "@mui/icons-material";
 import {useDispatch, useSelector} from "react-redux";
 
-// import {clearLoginErrors, loginUser} from "../../store/actions/usersActions";
 import FormElement from "../../components/UI/Form/FormElement/FormElement";
 import ButtonWithProgress from "../../components/UI/ButtonWithProgress/ButtonWithProgress";
+import {clearLoginErrors, loginUser} from "../../store/actions/usersActions";
 
 const useStyles = makeStyles()(theme => ({
     paper: {
@@ -39,8 +39,8 @@ const Login = () => {
 
     const dispatch = useDispatch();
 
-    // const error = useSelector(state => state.users.loginError);
-    // const loading = useSelector(state => state.users.loginLoading);
+    const error = useSelector(state => state.users.loginError);
+    const loading = useSelector(state => state.users.loginLoading);
 
     const [user, setUser] = useState({
         username: '',
@@ -49,7 +49,7 @@ const Login = () => {
 
     useEffect(() => {
         return () => {
-            // dispatch(clearLoginErrors());
+            dispatch(clearLoginErrors());
         }
     }, [dispatch]);
 
@@ -61,7 +61,7 @@ const Login = () => {
     const submitFormHandler = e => {
         e.preventDefault();
 
-        // dispatch(loginUser({...user}));
+        dispatch(loginUser({...user}));
     };
 
     return (
@@ -74,11 +74,11 @@ const Login = () => {
                     Sign in
                 </Typography>
 
-                {/*{error && (*/}
-                {/*    <Alert severity="error" className={classes.alert}>*/}
-                {/*        Error! {error.message}*/}
-                {/*    </Alert>*/}
-                {/*)}*/}
+                {error && (
+                    <Alert severity="error" className={classes.alert}>
+                        Error! {error.message}
+                    </Alert>
+                )}
 
                 <Grid
                     component="form"
@@ -105,8 +105,8 @@ const Login = () => {
 
                     <Grid item xs={12}>
                         <ButtonWithProgress
-                            // loading={loading}
-                            // disabled={loading}
+                            loading={loading}
+                            disabled={loading}
                             type="submit"
                             fullWidth
                             variant="contained"

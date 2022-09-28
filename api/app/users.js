@@ -30,13 +30,13 @@ router.post('/sessions', async (req, res) => {
     const isMatch = await user.checkPassword(req.body.password);
 
     if (!isMatch) {
-        res.status(401).send({message: 'Credentials are wrong!'});
+        return res.status(401).send({message: 'Credentials are wrong!'});
     }
 
     user.generateToken();
 
     await user.save({validateBeforeSave: false});
-    res.send({message: 'Username and password correct!', user})
+    res.send(user);
 });
 
 router.delete('/sessions', async (req, res) => {
