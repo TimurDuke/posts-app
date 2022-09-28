@@ -22,7 +22,9 @@ router.get('/', async (req,res) => {
     try {
         const posts = await Post
             .find()
-            .sort({datetime: -1});
+            .sort({datetime: -1})
+            .populate('user', 'username');
+
         res.send(posts);
     } catch (e) {
         res.status(500);
@@ -34,7 +36,7 @@ router.get('/:id', async (req,res) => {
         const post = await Post
             .findById(req.params.id)
             .populate('user');
-        if (!post) res.status(404).send({message: "This album is not found"});
+        if (!post) res.status(404).send({message: "This post is not found"});
         res.send(post);
     } catch (e) {
         res.status(500);
@@ -57,7 +59,7 @@ router.post('/', auth, upload.single("image"), async (req, res) => {
         };
 
         if (req.file) {
-            postData.image = req.file.filename;
+            postData.image = 'uploads/' + req.file.filename;
         }
 
         try {
@@ -69,7 +71,7 @@ router.post('/', auth, upload.single("image"), async (req, res) => {
             res.status(400).send({error: e.errors});
         }
     } else {
-        return res.status(400).send({message: "One of the fields must be filled."});
+        return res.status(400).send({message: "Data not valid"});
     }
 });
 module.exports = router;
