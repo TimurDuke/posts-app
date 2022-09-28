@@ -27,7 +27,7 @@ const run = async () => {
 
     const [post1, post2, post3] = await Post.create({
         title: "Post 1",
-        image: "fixtures/post1.jpeg",
+        image: "fixtures/post1.jpg",
         description: null,
         user: user1['_id'],
         datetime: "2022-09-28T05:56:35.310Z"
