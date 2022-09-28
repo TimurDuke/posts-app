@@ -5,6 +5,7 @@ const path = require('path');
 const multer = require('multer');
 const {nanoid} = require('nanoid');
 const Post = require('../models/Post');
+const auth = require("../middleware/auth");
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -40,27 +41,35 @@ router.get('/:id', async (req,res) => {
     }
 });
 
-router.post('/', upload.single("image"), async (req, res) => {
-    const {user, title} = req.body;
-    if (!user || !title) {
+router.post('/', auth, upload.single("image"), async (req, res) => {
+    const {title, description} = req.body;
+    if (!title) {
         return res.status(400).send({error: 'Data not valid'});
     }
-    const postData = {
-        user,
-        title,
-        description: null,
-        image: null,
-        datetime: new Date().toISOString(),
-    };
-    if (req.file) {
-        postData.image = req.file.filename;
-    }
-    try {
-        const post = new Post(postData);
-        await post.save();
-        res.send(post);
-    } catch (e) {
-        res.status(400).send({error: e.errors});
+
+    if ((description && !req.file) || (!description && req.file)) {
+        const postData = {
+            user: req.user._id,
+            title,
+            description: description || null,
+            image: null,
+            datetime: new Date().toISOString(),
+        };
+
+        if (req.file) {
+            postData.image = req.file.filename;
+        }
+
+        try {
+            const post = new Post(postData);
+
+            await post.save();
+            res.send(post);
+        } catch (e) {
+            res.status(400).send({error: e.errors});
+        }
+    } else {
+        return res.status(400).send({message: "One of the fields must be filled."});
     }
 });
 module.exports = router;
