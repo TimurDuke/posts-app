@@ -6,6 +6,7 @@ const config = require('./config');
 const posts = require('./app/posts');
 
 const users = require('./app/users');
+const comments = require('./app/comments');
 
 const app = express();
 const PORT = 8000;
@@ -16,6 +17,7 @@ app.use(cors());
 
 
 app.use('/users', users);
+app.use('/comments', comments)
 
 app.use('/posts', posts);
 
