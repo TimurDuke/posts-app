@@ -4,12 +4,14 @@ import axiosApi from "../axiosApi";
 import {loadFromLocalStorage, saveToLocalStorage} from "./localStorage";
 import postsReducer from "./reducers/postsReducer";
 import usersReducer from "./reducers/usersReducer";
+import commentsReducer from "./reducers/commentsReducer";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
     posts: postsReducer,
     users: usersReducer,
+    comments: commentsReducer
 });
 
 const persistedState = loadFromLocalStorage();

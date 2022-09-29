@@ -13,7 +13,7 @@ const AppToolBar = () => {
 
     return (
         <>
-            <AppBar sx={{padding: '10px 15px', background: '#69c897'}}>
+            <AppBar sx={{padding: '10px 15px', background: '#18453b'}}>
                 <ToastContainer/>
                 <Grid container justifyContent='space-between' alignItems='center'>
                     <Grid item>
