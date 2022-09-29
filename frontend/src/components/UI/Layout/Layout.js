@@ -8,7 +8,7 @@ const Layout = ({children}) => {
             <CssBaseline/>
             <AppToolBar/>
             <main>
-                <Container maxWidth="xl" sx={{background: '#abccba'}}>
+                <Container maxWidth="xl" sx={{background: '#abccba', minHeight: '90vh', paddingY: '20px'}}>
                     {children}
                 </Container>
             </main>

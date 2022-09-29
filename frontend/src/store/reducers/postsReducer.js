@@ -4,7 +4,8 @@ import {
     FETCH_POSTS_SUCCESS,
     CREATE_POSTS_FAILURE,
     CREATE_POSTS_REQUEST,
-    CREATE_POSTS_SUCCESS,} from "../actions/postsActions";
+    CREATE_POSTS_SUCCESS, FETCH_POST_REQUEST, FETCH_POST_SUCCESS, FETCH_POST_FAILURE,
+} from "../actions/postsActions";
 
 const initialState = {
     posts: [],
@@ -20,6 +21,12 @@ const postsReducer = (state = initialState, action) => {
         case FETCH_POSTS_SUCCESS:
             return {...state, loading: false, posts: action.payload};
         case FETCH_POSTS_FAILURE:
+            return {...state, loading: false, error: action.payload};
+        case FETCH_POST_REQUEST:
+            return {...state, loading: true, error: null};
+        case FETCH_POST_SUCCESS:
+            return {...state, loading: false, post: action.payload};
+        case FETCH_POST_FAILURE:
             return {...state, loading: false, error: action.payload};
 
         case CREATE_POSTS_REQUEST:
