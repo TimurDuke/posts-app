@@ -48,6 +48,7 @@ const AddNewPost = ({onSubmit}) => {
             >
                 <Grid item>
                     <TextField
+                        required
                         label="Title"
                         name="title"
                         value={state.title}
@@ -57,7 +58,7 @@ const AddNewPost = ({onSubmit}) => {
 
                 <Grid item>
                     <TextField
-                        required
+                        required={!state.image}
                         multiline
                         rows={3}
                         label="Description"
@@ -72,6 +73,7 @@ const AddNewPost = ({onSubmit}) => {
                         label="Image"
                         name="image"
                         onChange={fileChangeHandler}
+                        required={!state.description}
                     />
                 </Grid>
 

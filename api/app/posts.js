@@ -49,7 +49,7 @@ router.post('/', auth, upload.single("image"), async (req, res) => {
         return res.status(400).send({error: 'Data not valid'});
     }
 
-    if ((description && !req.file) || (!description && req.file)) {
+    if ((description && !req.file) || (!description && req.file) || (description && req.file)) {
         const postData = {
             user: req.user._id,
             title,

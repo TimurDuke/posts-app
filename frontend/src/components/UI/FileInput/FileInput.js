@@ -8,7 +8,7 @@ const useStyles = makeStyles()(() => ({
     }
 }));
 
-const FileInput = ({onChange, name, label}) => {
+const FileInput = ({onChange, name, label, required}) => {
     const {classes} = useStyles();
     const inputRef = useRef();
 
@@ -36,6 +36,7 @@ const FileInput = ({onChange, name, label}) => {
                 className={classes.input}
                 onChange={onFileChange}
                 ref={inputRef}
+
             />
             <Grid container direction="row" spacing={2} alignItems="center">
                 <Grid item xs>
@@ -44,6 +45,7 @@ const FileInput = ({onChange, name, label}) => {
                         label={label}
                         value={filename}
                         onClick={activateInput}
+                        required={required}
                     />
                 </Grid>
                 <Grid item>
