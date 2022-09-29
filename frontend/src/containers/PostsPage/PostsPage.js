@@ -35,6 +35,7 @@ const PostsPage = () => {
                             title={post.title}
                             image={post.image}
                             datetime={post.datetime}
+                            commentsCount={post.commentsCount}
                         />
                     ))}
                 </div>

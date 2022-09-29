@@ -33,6 +33,9 @@ const PostsList = (props) => {
                         {props.title}
                     </Link>
                 </Button>
+                <Typography variant="body2" color="text.secondary" paddingLeft={1}>
+                    Comments count: {props.commentsCount}
+                </Typography>
             </CardContent>
         </Card>
     );
