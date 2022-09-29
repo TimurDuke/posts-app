@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const config = require('../config');
 const path = require('path');
 const multer = require('multer');
 const {nanoid} = require('nanoid');
-const Post = require('../models/Post');
+
 const auth = require("../middleware/auth");
+const config = require('../config');
+const Post = require('../models/Post');
+const Comment = require('../models/Comment');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -18,14 +20,20 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage});
 
-router.get('/', async (req,res) => {
+router.get('/', async (req, res) => {
     try {
         const posts = await Post
             .find()
             .sort({datetime: -1})
             .populate('user', 'username');
 
-        res.send(posts);
+        const response = await Promise.all(posts.map(async post => {
+            const comments = await Comment.find({post: post._id});
+
+            return {...post['_doc'], commentsCount: comments.length};
+        }));
+
+        res.send(response);
     } catch (e) {
         res.status(500);
     }
