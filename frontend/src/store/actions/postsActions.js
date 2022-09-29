@@ -61,5 +61,5 @@ export const createPost = (postData) => {
             dispatch(createPostsFailure(e.message));
             throw e;
         }
-    }
+    };
 };

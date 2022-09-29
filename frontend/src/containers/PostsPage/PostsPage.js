@@ -1,14 +1,16 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {Grid, Typography} from "@mui/material";
+import {Button, Grid, Typography} from "@mui/material";
 import {fetchPosts} from "../../store/actions/postsActions";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import PostsList from "../../components/PostsList/PostsList";
+import {Link} from "react-router-dom";
 
 const PostsPage = () => {
     const dispatch = useDispatch();
     const posts = useSelector(state => state.posts.posts);
     const loading = useSelector(state => state.posts.loading);
+    const user = useSelector(state => state.users.user);
 
     useEffect(() => {
         dispatch(fetchPosts());
@@ -22,6 +24,12 @@ const PostsPage = () => {
                         Posts
                     </Typography>
                 </Grid>
+                {user &&
+                <Grid item>
+                    <Button color='success' component={Link} to='/posts/new'>
+                        Add
+                    </Button>
+                </Grid> }
             </Grid>
 
             {loading
