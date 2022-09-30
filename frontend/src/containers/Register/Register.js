@@ -44,6 +44,7 @@ const Register = () => {
     });
 
     useEffect(() => {
+        dispatch(clearRegisterErrors());
         return () => {
             dispatch(clearRegisterErrors());
         }

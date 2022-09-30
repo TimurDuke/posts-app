@@ -2,8 +2,12 @@ import React, {useState} from 'react';
 import {Button, Grid} from "@mui/material";
 import FileInput from "../UI/FileInput/FileInput";
 import FormElement from "../UI/Form/FormElement/FormElement";
+import {useSelector} from "react-redux";
+import {Redirect} from "react-router-dom";
 
 const AddNewPost = ({onSubmit}) => {
+    const user = useSelector(state => state.users.user);
+
     const [state, setState] = useState({
         title: "",
         description: "",
@@ -33,6 +37,10 @@ const AddNewPost = ({onSubmit}) => {
 
         setState(prevState => ({...prevState, [name]: file}));
     };
+
+    if (!user) {
+        return <Redirect to='/login'/>
+    }
 
     return (
         <form

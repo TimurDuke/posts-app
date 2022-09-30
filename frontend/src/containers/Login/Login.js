@@ -49,6 +49,7 @@ const Login = () => {
     });
 
     useEffect(() => {
+        dispatch(clearLoginErrors());
         return () => {
             dispatch(clearLoginErrors());
         }

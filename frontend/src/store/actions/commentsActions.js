@@ -1,4 +1,5 @@
 import axiosApi from "../../axiosApi";
+import {useToastSuccess} from "../../hooks";
 
 export const FETCH_COMMENTS_REQUEST = 'FETCH_COMMENTS_REQUEST';
 export const FETCH_COMMENTS_SUCCESS = 'FETCH_COMMENTS_SUCCESS';
@@ -36,6 +37,7 @@ export const createComment = (data) => {
 
             await axiosApi.post('/comments', data);
             await dispatch(createCommentSuccess());
+            useToastSuccess('Comment successfully created.')
         } catch (e) {
             dispatch(createCommentFailure(e.message));
         }

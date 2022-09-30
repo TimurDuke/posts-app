@@ -1,6 +1,6 @@
 import axiosApi from "../../axiosApi";
-import {historyReplace} from "./historyActions";
-import {useToastInfo} from "../../hooks";
+import {historyPush} from "./historyActions";
+import {useToastSuccess} from "../../hooks";
 
 export const FETCH_POSTS_REQUEST = 'FETCH_POSTS_REQUEST';
 export const FETCH_POSTS_SUCCESS = 'FETCH_POSTS_SUCCESS';
@@ -58,14 +58,10 @@ export const createPost = (postData) => {
             dispatch(createPostsRequest());
             await axiosApi.post('/posts', postData);
             dispatch(createPostsSuccess());
+            useToastSuccess('Post successfully created.')
+            dispatch(historyPush('/'));
         } catch (e) {
-            if (e.response.status === 401) {
-                useToastInfo('Please sign in!');
-                dispatch(historyReplace('/login'));
-            }
-
             dispatch(createPostsFailure(e.message));
-            throw e;
         }
     };
 };
