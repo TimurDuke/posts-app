@@ -41,6 +41,7 @@ const FileInput = ({onChange, name, label, required}) => {
             <Grid container direction="row" spacing={2} alignItems="center">
                 <Grid item xs>
                     <TextField
+                        fullWidth
                         disabled
                         label={label}
                         value={filename}
@@ -49,7 +50,7 @@ const FileInput = ({onChange, name, label, required}) => {
                     />
                 </Grid>
                 <Grid item>
-                    <Button variant="contained" onClick={activateInput}>Browse</Button>
+                    <Button variant="contained" color='success' onClick={activateInput}>Browse</Button>
                 </Grid>
             </Grid>
         </>

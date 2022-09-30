@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import {Button, Grid, TextField} from "@mui/material";
+import {Button, Grid} from "@mui/material";
 import FileInput from "../UI/FileInput/FileInput";
+import FormElement from "../UI/Form/FormElement/FormElement";
 
 const AddNewPost = ({onSubmit}) => {
     const [state, setState] = useState({
@@ -46,27 +47,21 @@ const AddNewPost = ({onSubmit}) => {
                 direction="column"
                 rowSpacing={2}
             >
-                <Grid item>
-                    <TextField
-                        required
-                        label="Title"
-                        name="title"
-                        value={state.title}
-                        onChange={inputChangeHandler}
-                    />
-                </Grid>
+                <FormElement
+                    required={true}
+                    label='Title'
+                    name='title'
+                    value={state.title}
+                    onChange={inputChangeHandler}
+                />
 
-                <Grid item>
-                    <TextField
-                        required={!state.image}
-                        multiline
-                        rows={3}
-                        label="Description"
-                        name="description"
-                        value={state.description}
-                        onChange={inputChangeHandler}
-                    />
-                </Grid>
+                <FormElement
+                    required={!state.image}
+                    label='Description'
+                    name='description'
+                    value={state.description}
+                    onChange={inputChangeHandler}
+                />
 
                 <Grid item>
                     <FileInput
@@ -78,7 +73,7 @@ const AddNewPost = ({onSubmit}) => {
                 </Grid>
 
                 <Grid item>
-                    <Button type="submit" color="primary" variant="contained">Create</Button>
+                    <Button type="submit" color="success" variant="contained">Create</Button>
                 </Grid>
             </Grid>
         </form>
