@@ -1,4 +1,6 @@
 import axiosApi from "../../axiosApi";
+import {historyReplace} from "./historyActions";
+import {useToastInfo} from "../../hooks";
 
 export const FETCH_POSTS_REQUEST = 'FETCH_POSTS_REQUEST';
 export const FETCH_POSTS_SUCCESS = 'FETCH_POSTS_SUCCESS';
@@ -23,7 +25,6 @@ const fetchPostFailure = error => ({type: FETCH_POST_FAILURE, payload: error});
 const createPostsRequest = () => ({type: CREATE_POSTS_REQUEST});
 const createPostsSuccess = () => ({type: CREATE_POSTS_SUCCESS});
 const createPostsFailure = error => ({type: CREATE_POSTS_FAILURE, payload: error});
-
 
 export const fetchPosts = () => {
     return async dispatch => {
@@ -58,6 +59,11 @@ export const createPost = (postData) => {
             await axiosApi.post('/posts', postData);
             dispatch(createPostsSuccess());
         } catch (e) {
+            if (e.response.status === 401) {
+                useToastInfo('Please sign in!');
+                dispatch(historyReplace('/login'));
+            }
+
             dispatch(createPostsFailure(e.message));
             throw e;
         }

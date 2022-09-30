@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {Button, Grid, Typography} from "@mui/material";
+import {Link} from "react-router-dom";
 import {fetchPosts} from "../../store/actions/postsActions";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import PostsList from "../../components/PostsList/PostsList";
-import {Link} from "react-router-dom";
 
 const PostsPage = () => {
     const dispatch = useDispatch();
@@ -49,7 +49,6 @@ const PostsPage = () => {
                 </div>
             }
         </Grid>
-
     );
 };
 

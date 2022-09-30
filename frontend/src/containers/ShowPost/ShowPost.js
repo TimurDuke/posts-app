@@ -23,7 +23,10 @@ const ShowPost = ({match}) => {
     }, [dispatch, postId]);
 
     const onCommentChange = e => {
-        setComment(e.target.value);
+        setComment(prev => ({
+            ...prev,
+            text: e.target.value,
+        }));
     };
 
     const onCommentSubmit = async e => {
@@ -32,6 +35,11 @@ const ShowPost = ({match}) => {
         if (comment.text) {
             await dispatch(createComment({...comment, post: postId}));
             dispatch(fetchComments(postId));
+
+            setComment(prev => ({
+                ...prev,
+                text: '',
+            }));
         }
     };
 
@@ -61,6 +69,7 @@ const ShowPost = ({match}) => {
                         value={comment.text}
                         onChange={onCommentChange}
                         label='Add Your comment...'
+                        required={true}
                     />
                     <ButtonWithProgress
                         loading={loading}
@@ -69,6 +78,7 @@ const ShowPost = ({match}) => {
                         fullWidth
                         variant="contained"
                         color="success"
+                        sx={{marginTop: '5px'}}
                     >
                         Send
                     </ButtonWithProgress>

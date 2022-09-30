@@ -36,7 +36,7 @@ export const registerUser = userData => {
             }
         }
     };
-}
+};
 
 export const LOGOUT_USER = 'LOGOUT_USER';
 
@@ -51,7 +51,7 @@ export const logoutUser = () => {
             console.error(e);
         }
     };
-}
+};
 
 export const CLEAR_LOGIN_ERRORS = 'CLEAR_LOGIN_ERRORS';
 export const clearLoginErrors = () => ({type: CLEAR_LOGIN_ERRORS});

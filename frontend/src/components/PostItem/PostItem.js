@@ -8,7 +8,7 @@ const PostItem = (props) => {
     return (
         <div className="PostItem">
             <Card variant="outlined" sx={{ maxWidth: 900, display: 'flex',}}>
-                <Box sx={{height: 250, width: 250, display: "flex", alignItems: 'center', justifyContent: 'center', borderRight: '1px solid lightgrey'}}>
+                <Box sx={{height: 250, width: 250, display: "flex", alignItems: 'center', justifyContent: 'center', flexShrink: 0}}>
                     {props.image ?
                         <CardMedia
                             component="img"
@@ -20,7 +20,7 @@ const PostItem = (props) => {
                         <ForumRoundedIcon sx={{fontSize: 70}}/>
                     }
                 </Box>
-                <CardContent>
+                <CardContent sx={{borderLeft: '1px solid lightgrey'}}>
                     <Typography variant="body2" color="text.secondary" paddingLeft={1}>
                         <b>{props.author}</b> at {new Date(props.datetime).toLocaleTimeString([], {year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit'})}
                     </Typography>

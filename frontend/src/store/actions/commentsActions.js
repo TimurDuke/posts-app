@@ -34,8 +34,8 @@ export const createComment = (data) => {
         try{
             dispatch(createCommentRequest());
 
-            await dispatch(createCommentSuccess(data));
-            console.log(data);
+            await axiosApi.post('/comments', data);
+            await dispatch(createCommentSuccess());
         } catch (e) {
             dispatch(createCommentFailure(e.message));
         }

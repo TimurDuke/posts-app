@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const exitHook = require('async-exit-hook');
 const config = require('./config');
 const posts = require('./app/posts');
-
 const users = require('./app/users');
 const comments = require('./app/comments');
 

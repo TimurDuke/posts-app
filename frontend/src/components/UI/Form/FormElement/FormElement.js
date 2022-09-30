@@ -10,7 +10,7 @@ const FormElement = ({name, value, onChange, label, error, type, required}) => (
             name={name}
             type={type}
             required={required}
-            value={value.username}
+            value={value}
             onChange={onChange}
             error={Boolean(error)}
             helperText={error}
